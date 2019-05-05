@@ -438,7 +438,8 @@ class _TemporaryFileCloser:
             if not self.close_called and self.file is not None:
                 self.close_called = True
                 try:
-                    self.file.close()
+                    if not isinstance(self.file, str):
+                        self.file.close()
                 finally:
                     if self.delete:
                         unlink(self.name)
